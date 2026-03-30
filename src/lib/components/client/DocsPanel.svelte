@@ -1,35 +1,188 @@
 <script>
   import { Menu, Upload } from "lucide-svelte";
+
+  const defaultFiles = [
+    "System Integration Guide.docx",
+    "Project Timeline.zip",
+    "Location Data Sheet.zip",
+    "Site Plan Document.zip",
+    "Process Diagram.docx",
+    "On-site Safety Document.zip",
+    "Network Configuration.docx",
+    "Project Schedule.zip",
+    "Sensor Data.zip",
+    "Project Overview.zip",
+    "System Schematic.docx",
+    "Safety Protocols.zip",
+    "Safety Protocols.zip",
+  ];
+
+  let fileInput;
+  let docsFiles = $state(
+    defaultFiles.map((name, index) => createFileCard(name, `seed-${index}`)),
+  );
+
+  function createFileCard(name, id) {
+    const parts = name.split(".");
+    const extension = (parts.pop() || "file").toUpperCase();
+    const title = parts.join(".").replaceAll(" ", "\n");
+
+    return {
+      id,
+      name,
+      title,
+      extension,
+      badgeClass: getBadgeClass(extension),
+      iconClass: getIconClass(extension),
+    };
+  }
+
+  function getBadgeClass(extension) {
+    if (extension === "DOCX") return "status-info";
+    if (extension === "PDF") return "status-danger";
+    if (extension === "ZIP") return "status-neutral";
+    return "status-warning";
+  }
+
+  function getIconClass(extension) {
+    if (extension === "DOCX") return "doc-icon-word";
+    if (extension === "ZIP") return "doc-icon-zip";
+    return "doc-icon-generic";
+  }
+
+  function openFilePicker() {
+    fileInput?.click();
+  }
+
+  function handleUpload(event) {
+    const selectedFiles = Array.from(event.currentTarget.files || []);
+
+    if (!selectedFiles.length) return;
+
+    docsFiles = [
+      ...selectedFiles.map((file) =>
+        createFileCard(file.name, `${file.name}-${file.lastModified}`),
+      ),
+      ...docsFiles,
+    ];
+
+    event.currentTarget.value = "";
+  }
 </script>
 
-<div class="bg-white border border-[#EACFB6] rounded-xl flex flex-col shadow-sm">
-  <div class="border-b border-[#EACFB6] p-2.5 flex items-center justify-between text-[#A26D1D] font-bold text-sm relative">
+<div class="client-card flex h-[26rem] flex-col overflow-hidden">
+  <div
+    class="client-panel-header grid grid-cols-[24px_1fr_auto] items-center bg-[var(--client-surface-muted)] p-2.5 text-sm font-bold"
+  >
     <Menu size={18} strokeWidth={2} class="relative z-10" />
-    <span class="absolute left-1/2 -translate-x-1/2">Docs & Files</span>
-    <button class="relative z-10 flex items-center gap-1 border border-[#FCA5A5] text-[#EF4444] px-2 py-1 rounded text-[11px] font-bold hover:bg-red-50">
-      <Upload size={12} strokeWidth={3} /> Upload File
+    <span class="text-center text-[15px] font-bold">Docs & Files</span>
+    <button
+      type="button"
+      onclick={openFilePicker}
+      class="relative z-10 flex items-center gap-1 rounded-[8px] border border-[var(--client-border-strong)] bg-white px-3 py-1.5 text-[11px] font-medium text-[var(--color-primary)] shadow-sm transition-colors hover:bg-[var(--client-surface)]"
+    >
+      <Upload size={12} strokeWidth={2.5} /> Upload File
     </button>
   </div>
-  <div class="p-4 grid grid-cols-5 gap-3 gap-y-5 justify-center">
-    {#each [{ t: "System\nIntegration\nGuide", c: "DOCX", ic: "bg-[#3B82F6]" }, { t: "Project\nTimeline", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "Location\nData\nSheet", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "Site\nPlan\nDocument", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "Process\nDiagram", c: "DOCX", ic: "bg-[#3B82F6]" }, { t: "On-site\nSafety\nDocument", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "Network\nConfiguration", c: "DOCX", ic: "bg-[#3B82F6]" }, { t: "Project\nSchedule", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "Sensor\nData", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "Project\nOverview", c: "ZIP", ic: "bg-[#4B5563]" }, { t: "System\nSchematic", c: "DOCX", ic: "bg-[#3B82F6]" }, { t: "Safety\nProtocols", c: "ZIP", ic: "bg-[#4B5563]" }] as file}
-      <div class="flex flex-col items-center justify-start text-center h-[90px]">
-        <span class="text-[9px] font-bold leading-[1.1] text-gray-800 mb-1 h-8 flex items-end justify-center">
-          {file.t}
+  <input
+    bind:this={fileInput}
+    type="file"
+    class="hidden"
+    multiple
+    onchange={handleUpload}
+  />
+  <div
+    class="client-scrollbar grid min-h-0 flex-1 grid-cols-2 gap-4 overflow-y-auto p-4 pr-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6"
+  >
+    {#each docsFiles as file (file.id)}
+      <div
+        class="flex min-h-[128px] flex-col justify-between rounded-[6px] border border-gray-200 bg-white px-2 py-3 text-center shadow-[0_8px_22px_rgba(0,0,0,0.03)] transition-colors hover:bg-gray-50"
+      >
+        <span
+          class="client-title mb-3 flex min-h-[50px] items-start justify-center text-[10px] font-bold leading-[1.25]"
+        >
+          {file.title}
         </span>
-        <div class="relative w-7 h-9 border-2 border-gray-300 rounded-[3px] flex flex-col items-center shadow-sm">
-          <!-- fold corner -->
-          <div class="absolute -top-0.5 -right-0.5 w-0 h-0 border-l-8 border-l-transparent border-t-8 border-t-white mix-blend-color-burn"></div>
-          <div class="flex flex-col gap-[2px] mt-1.5 opacity-40">
-            <div class="w-3 border-t-2 border-gray-400"></div>
-            <div class="w-4 border-t-2 border-gray-400"></div>
-            <div class="w-3 border-t-2 border-gray-400"></div>
-            <div class="w-4 border-t-2 border-gray-400"></div>
-          </div>
-          <div class="absolute -bottom-1 {file.ic} text-white text-[8px] font-bold px-[3px] py-px rounded-[2px]">
-            {file.c}
+        <div class="flex flex-col items-center">
+          <div class="relative h-[46px] w-[38px]">
+            <div class="doc-icon-sheet {file.iconClass}">
+              <div class="doc-icon-corner"></div>
+              <div class="doc-icon-lines">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+            <div
+              class="status-pill absolute -bottom-1 left-1/2 -translate-x-1/2 px-[5px] py-px text-[8px] font-bold text-white {file.badgeClass}"
+            >
+              {file.extension}
+            </div>
           </div>
         </div>
       </div>
     {/each}
   </div>
 </div>
+
+<style>
+  .doc-icon-sheet {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .doc-icon-corner {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-top: 10px solid rgba(255, 255, 255, 0.85);
+  }
+
+  .doc-icon-lines {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .doc-icon-lines div {
+    width: 16px;
+    border-top: 2px solid currentColor;
+  }
+
+  .doc-icon-lines div:nth-child(even) {
+    width: 12px;
+  }
+
+  .doc-icon-word {
+    background: linear-gradient(180deg, #dff0ff 0%, #bfe0ff 100%);
+    color: #6aaef1;
+  }
+
+  .doc-icon-zip {
+    background: linear-gradient(180deg, #f5f5f5 0%, #e6e6e6 100%);
+    color: #1f2937;
+  }
+
+  .doc-icon-zip .doc-icon-lines div {
+    width: 2px;
+    height: 4px;
+    border-top: 0;
+    background: currentColor;
+  }
+
+  .doc-icon-generic {
+    background: linear-gradient(180deg, #f3f7fb 0%, #dce7f3 100%);
+    color: #6b7280;
+  }
+</style>

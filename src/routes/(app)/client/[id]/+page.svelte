@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  
+
   // Components
   import ClientHeader from "$lib/components/client/ClientHeader.svelte";
   import ClientsPanel from "$lib/components/client/ClientsPanel.svelte";
@@ -28,16 +28,18 @@
   <title>{clientName} - Client Details</title>
 </svelte:head>
 
-<div class="flex w-full bg-white border border-[#EACFB6] shadow-sm font-sans h-[1000px] overflow-hidden -mx-4 -my-2 rounded-xl">
+<div
+  class=" flex h-[1000px] w-full overflow-hidden -mx-4 -my-2 font-sans"
+>
   <!-- Main Content Area -->
-  <main class="flex-1 bg-[#FCFBF8] overflow-y-auto px-6 py-6 custom-scrollbar relative">
-    
+  <main
+    class="client-shell client-scrollbar relative flex-1 overflow-y-auto px-6 py-6"
+  >
     <!-- Top Banner Section -->
     <ClientHeader {clientName} />
 
     <!-- Details Grid -->
     <div class="grid grid-cols-2 gap-6 w-full">
-      
       <!-- Left Column -->
       <div class="flex flex-col gap-6">
         <ClientsPanel />
@@ -54,22 +56,8 @@
     </div>
 
     <!-- Timeline Section -->
-    <ActivityTimeline />
-
+    <!-- <ActivityTimeline /> -->
   </main>
 </div>
 
 <div class="h-16"></div>
-
-<style>
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #EACFB6;
-    border-radius: 10px;
-  }
-</style>

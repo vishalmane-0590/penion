@@ -24,7 +24,7 @@
       Dashboard
     </a>
     <a
-      // href="/cases"
+      href="/cases"
       class="flex items-center gap-2 {$page.url.pathname === '/cases'
         ? 'text-[#C07026] text-sm font-semibold'
         : 'text-gray-400 hover:text-gray-600 text-sm font-medium'} select-none"

@@ -1,0 +1,17 @@
+{
+	"/(auth)": [],
+	"/(app)": [],
+	"/": [
+		"src/routes/+page.server.js"
+	],
+	"/(app)/cases": [],
+	"/(app)/client": [],
+	"/(app)/client/[id]": [],
+	"/(app)/client/[id]/manage": [],
+	"/(app)/dashboard": [],
+	"/fill/[token]": [],
+	"/(app)/find": [],
+	"/(auth)/login": [],
+	"/(app)/project/view": [],
+	"/(app)/project/[id]": []
+}

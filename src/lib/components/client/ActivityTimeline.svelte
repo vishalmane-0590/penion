@@ -1,132 +1,233 @@
 <script>
-  // Timeline section component
+  const todayItem = {
+    project: "ACS-GROW Project",
+    name: "Max Jacob",
+    task: "Review Service Agreement",
+    status: "Complete",
+    time: "12:55am",
+    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    avatar:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=160&h=160&auto=format&fit=crop",
+  };
+
+  const yesterdayItems = [
+    {
+      time: "9:56am",
+      name: "Ethan Miller",
+      task: "Setup project and assign preparers",
+      status: "Not started",
+      details:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      avatar:
+        "https://images.unsplash.com/photo-1628157588553-5eeea00af15c?q=80&w=160&h=160&auto=format&fit=crop",
+    },
+    {
+      time: "9:48am",
+      name: "Dakota Evans",
+      task: "CPA-1270 Signed",
+      status: "In progress",
+      details:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      avatar:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=160&h=160&auto=format&fit=crop",
+    },
+    {
+      time: "9:47am",
+      name: "Cameron Lee",
+      task: "FSA Third Party Release Signed",
+      status: "Not started",
+      details:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      avatar:
+        "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=160&h=160&auto=format&fit=crop",
+    },
+    {
+      time: "12:55am",
+      name: "Harper Collins",
+      task: "Request info from FSA",
+      status: "Complete",
+      details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      avatar:
+        "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=160&h=160&auto=format&fit=crop",
+    },
+  ];
+
+  function getStatusClass(status) {
+    if (status === "Complete") {
+      return "status-pill status-success";
+    }
+
+    if (status === "In progress") {
+      return "status-pill status-warning";
+    }
+
+    return "status-pill status-danger";
+  }
 </script>
 
-<div class="w-full flex flex-col items-center mt-6">
-  <div class="bg-[#A26D1D] text-white font-bold text-[13px] px-8 py-1.5 rounded-sm shadow-md mb-8 tracking-wider">
-    Client Activity
+<section
+  class="client-card-muted mt-7 -mx-3 rounded-[20px] px-4 pb-8 pt-5 shadow-[0_6px_24px_rgba(0,85,101,0.06)] sm:px-5 lg:-mx-5 lg:px-6"
+>
+  <div class="relative">
+    <div class="mx-auto mb-8 h-px w-full bg-[var(--client-border)]"></div>
+    <div class="absolute left-1/2 top-[-15px] -translate-x-1/2">
+      <span
+        class="inline-flex h-[30px] items-center justify-center rounded-[4px] bg-[var(--color-sidebar)] px-4 text-[13px] font-medium text-white shadow-sm"
+      >
+        Project Activity
+      </span>
+    </div>
   </div>
 
-  <div class="relative w-full max-w-5xl mx-auto flex flex-col items-center">
-    <!-- Central Line -->
-    <div class="absolute top-0 bottom-0 left-1/2 w-[2px] bg-[#EACFB6] -translate-x-1/2 z-0"></div>
+  <div class="relative mx-auto max-w-[1240px] pt-8">
+    <div
+      class="absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[var(--client-timeline-line)] lg:block"
+    ></div>
 
-    <!-- TODAY SECTION -->
-    <div class="relative w-full flex flex-col items-center mb-10">
-      <div class="z-10 bg-[#C07026] text-white font-extrabold text-[10px] px-5 py-1.5 rounded shadow-sm mb-8 ring-4 ring-[#FCFBF8]">
+    <div class="mb-7 flex justify-center">
+      <span
+        class="inline-flex h-[28px] items-center justify-center rounded-[4px] bg-[var(--color-primary)] px-5 text-[13px] font-semibold text-white"
+      >
         TODAY
-      </div>
-
-      <!-- Activity Item 1 (LEFT) -->
-      <div class="w-full relative flex justify-end pr-[50%] -mt-4">
-        <div class="absolute right-1/2 translate-x-1/2 top-10 w-3.5 h-3.5 bg-white border-[3.5px] border-[#A26D1D] rounded-full z-20 shadow-sm"></div>
-        <div class="w-[440px] pr-8 py-2">
-          <span class="block text-[13px] font-bold text-gray-500 mb-2 text-right uppercase tracking-wider">ACS-GROW Project</span>
-          <div class="bg-white border border-[#EACFB6] rounded-xl shadow-[0_4px_12px_rgba(162,109,29,0.08)] p-5 flex gap-4 transition-all hover:scale-[1.01] hover:shadow-[0_8px_20px_rgba(162,109,29,0.12)]">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&h=150&auto=format&fit=crop" class="w-14 h-14 rounded-full border-2 border-[#FDF8F3] shadow-sm shrink-0" alt="user" />
-            <div class="flex flex-col w-full">
-              <div class="flex items-start justify-between">
-                <span class="text-[15px] font-extrabold text-gray-900">Max Jacobs</span>
-                <div class="flex flex-col items-end gap-1.5">
-                  <span class="text-[#A26D1D] text-[10px] bg-[#FDF8F3] font-bold px-2 py-0.5 rounded border border-[#EACFB6]/30 uppercase tracking-tighter">Review Service Agreement</span>
-                  <span class="bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] px-2 py-0.5 rounded text-[9px] font-bold uppercase">Complete</span>
-                </div>
-              </div>
-              <div class="flex items-start gap-2.5 mt-3">
-                <div class="w-4 h-4 border-2 border-[#EACFB6] rounded bg-[#FDF8F3] mt-0.5 shrink-0"></div>
-                <p class="text-[13px] text-gray-600 leading-relaxed font-medium">Verified the service agreement for the current project phase.</p>
-              </div>
-            </div>
-            <div class="absolute -bottom-6 left-0 text-gray-400 text-[10px] font-bold opacity-70">12:55 AM</div>
-          </div>
-        </div>
-      </div>
+      </span>
     </div>
 
-    <!-- YESTERDAY SECTION -->
-    <div class="relative w-full flex flex-col items-center">
-      <div class="z-10 bg-[#C07026] text-white font-extrabold text-[10px] px-4 py-1.5 rounded shadow-sm mb-10 ring-4 ring-[#FCFBF8]">
-        YESTERDAY
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div class="pr-0 lg:pr-6">
+        <div class="border-t border-[var(--client-timeline-line)] pt-3">
+          <div class="mb-2 text-[14px] font-normal text-slate-800">
+            {todayItem.project}
+          </div>
+
+          <div class="flex items-start gap-3">
+            <img
+              src={todayItem.avatar}
+              alt={todayItem.name}
+              class="h-[42px] w-[42px] rounded-full object-cover"
+            />
+
+            <div class="min-w-0 flex-1">
+              <div
+                class="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:justify-between lg:gap-3"
+              >
+                <div
+                  class="min-w-0 flex flex-1 flex-wrap items-center gap-x-4 gap-y-2 pr-2 lg:flex-nowrap"
+                >
+                  <span
+                    class="client-link shrink-0 text-[14px] font-medium underline underline-offset-[2px]"
+                  >
+                    {todayItem.name}
+                  </span>
+                  <span class="client-link truncate text-[13px] font-normal">
+                    {todayItem.task}
+                  </span>
+                </div>
+                <span
+                  class={`inline-flex h-[27px] shrink-0 items-center rounded-[6px] px-3 text-[12px] font-medium ${getStatusClass(todayItem.status)}`}
+                >
+                  {todayItem.status}
+                </span>
+              </div>
+
+              <div class="mt-2 flex items-center gap-2">
+                <span
+                  class="inline-block h-[16px] w-[16px] rounded-[3px] border border-slate-800 bg-white"
+                ></span>
+                <p class="text-[13px] leading-[1.3] text-slate-700">
+                  {todayItem.details}
+                </p>
+              </div>
+
+              <div class="mt-3 pl-[2px] text-right text-[12px] text-slate-600">
+                {todayItem.time}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="w-full flex flex-col gap-12">
-        <!-- Activity Item 2 (RIGHT) -->
-        <div class="w-full relative flex justify-start pl-[50%]">
-          <div class="absolute left-1/2 -translate-x-1/2 top-10 w-3.5 h-3.5 bg-[#A26D1D] rounded-full z-20 shadow-sm border-[3px] border-white"></div>
-          <div class="w-[440px] pl-8 py-2">
-            <span class="block text-[13px] font-bold text-gray-500 mb-2 uppercase tracking-wider">ACS-GROW Project</span>
-            <div class="bg-white border border-[#EACFB6] rounded-xl shadow-sm p-4 flex gap-4 hover:shadow-md transition-shadow">
-              <img src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?q=80&w=150&h=150&auto=format&fit=crop" class="w-14 h-14 rounded-full border-2 border-white shadow-sm shrink-0" alt="user" />
-              <div class="flex flex-col w-full">
-                <div class="flex items-start justify-between">
-                  <span class="text-[15px] font-extrabold text-gray-900">Ethan Miller</span>
-                  <div class="flex flex-col items-end gap-1.5">
-                    <span class="text-[#A26D1D] text-[10px] bg-[#FDF8F3] font-bold px-2 py-0.5 rounded border border-[#EACFB6]/30 uppercase tracking-tighter">Setup project & preparers</span>
-                    <span class="bg-[#FEE2E2] text-[#DC2626] border border-[#FECACA] px-2 py-0.5 rounded text-[9px] font-bold uppercase">Not started</span>
+      <div></div>
+    </div>
+
+    <div class="mb-6 mt-4 flex justify-center lg:mt-0">
+      <span
+        class="inline-flex h-[28px] items-center justify-center rounded-[4px] bg-[var(--color-primary)] px-5 text-[13px] font-semibold text-white"
+      >
+        YESTERDAY
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div></div>
+
+      <div class="pl-0 lg:pl-6">
+        <div class="space-y-5">
+          <div
+            class="border-t border-[var(--client-timeline-line)] pt-3 text-[14px] font-normal text-slate-800"
+          >
+            ACS-GROW Project
+          </div>
+
+          {#each yesterdayItems as item}
+            <div
+              class="grid grid-cols-[56px_minmax(0,1fr)] gap-4 lg:grid-cols-[78px_minmax(0,1fr)]"
+            >
+              <div class="pt-[46px] text-right text-[12px] text-slate-700">
+                {item.time}
+              </div>
+
+              <div class="flex items-start gap-3">
+                <img
+                  src={item.avatar}
+                  alt={item.name}
+                  class="mt-0.5 h-[42px] w-[42px] rounded-full object-cover"
+                />
+
+                <div class="min-w-0 flex-1">
+                  <div
+                    class="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:justify-between lg:gap-3"
+                  >
+                    <div
+                      class="min-w-0 flex flex-1 flex-wrap items-center gap-x-4 gap-y-2 pr-2 lg:flex-nowrap"
+                    >
+                      <span
+                        class="client-link shrink-0 text-[14px] font-medium underline underline-offset-[2px]"
+                      >
+                        {item.name}
+                      </span>
+                      <span
+                        class="client-link truncate text-[13px] font-normal"
+                      >
+                        {item.task}
+                      </span>
+                    </div>
+                    <span
+                      class={`inline-flex h-[27px] shrink-0 items-center rounded-[6px] px-3 text-[12px] font-medium ${getStatusClass(item.status)}`}
+                    >
+                      {item.status}
+                    </span>
                   </div>
-                </div>
-                <p class="text-[12px] text-gray-600 mt-2 leading-relaxed font-medium">Initiating project setup tasks and coordinating with the team to assign preparers.</p>
-              </div>
-              <div class="absolute -bottom-6 right-0 text-gray-400 text-[10px] font-bold opacity-70">9:56 AM</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Activity Item 3 (RIGHT) -->
-        <div class="w-full relative flex justify-start pl-[50%]">
-          <div class="absolute left-1/2 -translate-x-1/2 top-8 w-3 h-3 bg-[#A26D1D] rounded-full z-20 shadow-sm border-2 border-white"></div>
-          <div class="w-[440px] pl-8">
-            <div class="bg-white border border-[#EACFB6]/60 rounded-xl p-4 flex gap-4 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop" class="w-12 h-12 rounded-full border border-gray-100 shrink-0" alt="user" />
-              <div class="flex flex-col w-full">
-                <div class="flex items-center justify-between">
-                  <span class="text-[14px] font-bold text-gray-800">Dakota Evans</span>
-                  <span class="bg-[#FFFBEB] text-[#D97706] border border-[#FEF3C7] px-2 py-0.5 rounded text-[9px] font-extrabold uppercase">In progress</span>
-                </div>
-                <p class="text-[12px] text-gray-500 mt-1 leading-snug">The CPA-1270 form has been received and is currently being reviewed and signed.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                  <p class="mt-2 text-[13px] leading-[1.55] text-slate-700">
+                    {item.details}
+                  </p>
 
-        <!-- Activity Item 4 (RIGHT) -->
-        <div class="w-full relative flex justify-start pl-[50%]">
-          <div class="absolute left-1/2 -translate-x-1/2 top-8 w-3 h-3 bg-[#A26D1D] rounded-full z-20 shadow-sm border-2 border-white"></div>
-          <div class="w-[440px] pl-8">
-            <div class="bg-white border border-[#EACFB6]/60 rounded-xl p-4 flex gap-4 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=150&h=150&auto=format&fit=crop" class="w-12 h-12 rounded-full border border-gray-100 shrink-0" alt="user" />
-              <div class="flex flex-col w-full">
-                <div class="flex items-center justify-between">
-                  <span class="text-[14px] font-bold text-gray-800">Cameron Lee</span>
-                  <span class="bg-[#FEE2E2] text-[#DC2626] border border-[#FECACA] px-2 py-0.5 rounded text-[9px] font-extrabold uppercase">Not started</span>
-                </div>
-                <p class="text-[12px] text-gray-500 mt-1 leading-snug">Waiting for the FSA release documents to be finalized before proceeding.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Activity Item 5 (RIGHT) -->
-        <div class="w-full relative flex justify-start pl-[50%]">
-          <div class="absolute left-1/2 -translate-x-1/2 top-10 w-3.5 h-3.5 bg-white border-[3.5px] border-[#A26D1D] rounded-full z-20 shadow-sm"></div>
-          <div class="w-[440px] pl-8 py-2">
-            <div class="bg-white border border-[#EACFB6] rounded-xl shadow-sm p-5 flex gap-4 transition-transform hover:scale-[1.01]">
-              <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&h=150&auto=format&fit=crop" class="w-14 h-14 rounded-full border-2 border-white shadow-sm shrink-0" alt="user" />
-              <div class="flex flex-col w-full">
-                <div class="flex items-start justify-between">
-                  <span class="text-[15px] font-extrabold text-gray-900">Harper Collins</span>
-                  <span class="bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] px-2.5 py-0.5 rounded text-[9px] font-bold uppercase">Complete</span>
-                </div>
-                <div class="flex items-start gap-2.5 mt-3">
-                  <div class="w-4 h-4 border-2 border-[#EACFB6] rounded bg-[#FDF8F3] mt-0.5 shrink-0"></div>
-                  <p class="text-[13px] text-gray-600 leading-relaxed font-medium">Successfully gathered the required documentation from the PSA.</p>
+                  {#if item.status === "Complete"}
+                    <div class="mt-2 flex items-center gap-2">
+                      <span
+                        class="inline-block h-[16px] w-[16px] rounded-[3px] border border-slate-800 bg-white"
+                      ></span>
+                      <p class="text-[13px] leading-[1.3] text-slate-700">
+                        {item.details}
+                      </p>
+                    </div>
+                  {/if}
                 </div>
               </div>
-              <div class="absolute -bottom-6 right-0 text-gray-400 text-[10px] font-bold opacity-70">12:55 AM</div>
             </div>
-          </div>
+          {/each}
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
